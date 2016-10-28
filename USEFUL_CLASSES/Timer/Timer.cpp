@@ -1,12 +1,5 @@
-# turing-tape-music
-A framework for a live music performance based on a turing machine whose rule set is defined by some material process. Project initiated by John Bowers with Tom Schofield
-
-More details at http://digitalcultures.ncl.ac.uk/site/index.html#/grid/111 
-
-Things others are likely to use are in the USEFUL_CLASSES folder!
-
 /*
-  Turing Tape Music
+  Timer.cpp - Library for timing functions
   
   Copyright (c) 2016 Tom Schofield
 
@@ -28,3 +21,51 @@ Things others are likely to use are in the USEFUL_CLASSES folder!
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 */
+
+#include "Arduino.h"
+#include "Timer.h"
+
+Timer::Timer()
+{
+}
+
+void Timer::start(int _duration)
+{
+  duration = _duration;
+  inpoint = millis();
+  timesUp = false;
+  running = true;
+}
+void Timer::update()
+{
+
+}
+void Timer::setDutyCycle(float _dutyCycle){
+  dutyCycle = _dutyCycle;
+}
+void Timer::setFreq(int _freq){
+  freq = _freq;
+}
+int Timer::getFreq(){
+  return freq;
+}
+float Timer::getDutyCycle(){
+  return dutyCycle;
+}
+bool Timer::isRunning()
+{
+  return running;
+}
+int Timer::getDuration(){
+  return duration;
+}
+void Timer::stop()
+{
+  timesUp = false;
+  running = false;
+}
+bool Timer::timeIsUp(){
+  
+  if(millis() - inpoint  >= duration && !timesUp && running) timesUp = true;
+  return timesUp;
+}

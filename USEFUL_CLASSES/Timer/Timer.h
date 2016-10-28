@@ -1,12 +1,5 @@
-# turing-tape-music
-A framework for a live music performance based on a turing machine whose rule set is defined by some material process. Project initiated by John Bowers with Tom Schofield
-
-More details at http://digitalcultures.ncl.ac.uk/site/index.html#/grid/111 
-
-Things others are likely to use are in the USEFUL_CLASSES folder!
-
 /*
-  Turing Tape Music
+  Timer.h - Library for timing functions
   
   Copyright (c) 2016 Tom Schofield
 
@@ -28,3 +21,33 @@ Things others are likely to use are in the USEFUL_CLASSES folder!
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 */
+#ifndef Timer_h
+#define Timer_h
+
+#include "Timer.h"
+
+class Timer
+{
+  public:
+    Timer();
+    void start(int _duration);
+    void stop();
+    void update();
+    bool timeIsUp();
+    bool isRunning();
+    int getDuration();
+    void setDutyCycle(float _dutyCycle);
+    float getDutyCycle();
+    void setFreq(int _freq);
+    int getFreq();
+    
+  private:
+    long inpoint;
+    int duration;
+    bool timesUp;
+    bool running;
+    float dutyCycle;
+    int freq;
+};
+
+#endif
