@@ -1,0 +1,77 @@
+#N canvas 503 22 1054 799 10;
+#X declare -lib mrpeach;
+#X obj 567 -3998 print ERROR;
+#N canvas 712 205 905 623 in&out 0;
+#X obj 114 116 list-extend;
+#X obj 191 77 sel 10;
+#X msg 191 185 54 49 50 32 48 32;
+#X obj 190 157 prepend set;
+#X obj 193 236 gate;
+#X msg 126 209 0;
+#X msg 160 207 1;
+#X obj 116 30 inlet;
+#X obj 198 268 outlet;
+#X obj 87 80 route 10;
+#X connect 0 0 3 0;
+#X connect 1 0 0 1;
+#X connect 1 0 6 0;
+#X connect 1 0 2 0;
+#X connect 1 1 5 0;
+#X connect 2 0 4 1;
+#X connect 3 0 2 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 0;
+#X connect 7 0 9 0;
+#X connect 9 1 0 0;
+#X restore 456 -4068 pd in&out;
+#X obj 431 -3952 unpack 0 0 0 0 0 0 0;
+#X floatatom 429 -3915 5 0 0 0 - - -;
+#X msg 422 -4152 devices;
+#X text 554 -4109 < change the numer 2 to the comport used by Arduino
+;
+#X text 485 -4152 < Click me to see what is connected to serial port
+;
+#X text 530 -4067 < click me to see what's in the sub patch;
+#X text 589 -4030 < don't worry about this one!;
+#X text 43 -4184 NOTE: You need to have the file convert.ascii2pd.pd
+in the same folder as this patch;
+#X text 567 -3950 < unpack each sensor vaule (or switches connected)
+;
+#X text 555 -4097 < change the numer 9600 to the boudrate used by Arduino
+;
+#X obj 456 -4103 comport 1 9600;
+#X obj 148 -3860 import mrpeach;
+#X obj 147 -3891 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 277 -3830 5 0 100 0 - - -;
+#X obj 278 -3703 sendOSC;
+#X msg 277 -3793 send /resistance/ \$1;
+#X obj 114 -3929 loadbang;
+#X msg 535 -4207 open \$1;
+#X msg 601 -4207 close;
+#X msg 542 -4255 1;
+#X msg 493 -4256 0;
+#X obj 456 -4031 convert.ascii2pd CR;
+#X msg 115 -3793 connect 192.168.1.3 1200;
+#X text 44 -4221 ADapted from http://hacklab.recyclism.com/workshops/arduino-to-pd-serial/
+;
+#X obj 707 -3412;
+#X connect 1 0 23 0;
+#X connect 2 0 3 0;
+#X connect 3 0 15 0;
+#X connect 4 0 12 0;
+#X connect 12 0 1 0;
+#X connect 14 0 13 0;
+#X connect 15 0 17 0;
+#X connect 17 0 16 0;
+#X connect 18 0 14 0;
+#X connect 18 0 24 0;
+#X connect 19 0 12 0;
+#X connect 20 0 12 0;
+#X connect 21 0 19 0;
+#X connect 22 0 19 0;
+#X connect 23 0 2 0;
+#X connect 23 2 0 0;
+#X connect 24 0 16 0;

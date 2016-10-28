@@ -1,0 +1,152 @@
+#N canvas 503 23 1054 948 10;
+#X declare -lib mrpeach;
+#X obj 567 -3998 print ERROR;
+#N canvas 712 205 905 623 in&out 0;
+#X obj 114 116 list-extend;
+#X obj 191 77 sel 10;
+#X msg 191 185 54 49 50 32 48 32;
+#X obj 190 157 prepend set;
+#X obj 193 236 gate;
+#X msg 126 209 0;
+#X msg 160 207 1;
+#X obj 116 30 inlet;
+#X obj 198 268 outlet;
+#X obj 87 80 route 10;
+#X connect 0 0 3 0;
+#X connect 1 0 0 1;
+#X connect 1 0 6 0;
+#X connect 1 0 2 0;
+#X connect 1 1 5 0;
+#X connect 2 0 4 1;
+#X connect 3 0 2 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 0;
+#X connect 7 0 9 0;
+#X connect 9 1 0 0;
+#X restore 456 -4068 pd in&out;
+#X obj 431 -3952 unpack 0 0 0 0 0 0 0;
+#X floatatom 429 -3915 5 0 0 0 - - -;
+#X msg 422 -4152 devices;
+#X text 554 -4109 < change the numer 2 to the comport used by Arduino
+;
+#X text 485 -4152 < Click me to see what is connected to serial port
+;
+#X text 530 -4067 < click me to see what's in the sub patch;
+#X text 589 -4030 < don't worry about this one!;
+#X text 43 -4184 NOTE: You need to have the file convert.ascii2pd.pd
+in the same folder as this patch;
+#X text 567 -3950 < unpack each sensor vaule (or switches connected)
+;
+#X text 555 -4097 < change the numer 9600 to the boudrate used by Arduino
+;
+#X obj 456 -4103 comport 1 9600;
+#X obj 148 -3860 import mrpeach;
+#X obj 147 -3891 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 274 -3831 5 0 100 0 - - -;
+#X obj 278 -3703 sendOSC;
+#X msg 277 -3793 send /resistance/ \$1;
+#X obj 118 -3928 loadbang;
+#X msg 535 -4207 open \$1;
+#X msg 601 -4207 close;
+#X msg 542 -4255 1;
+#X msg 493 -4256 0;
+#X obj 456 -4031 convert.ascii2pd CR;
+#X obj 435 -3760 tabwrite raw;
+#X obj 482 -3885 counter 0 0 127;
+#X floatatom 514 -3812 5 0 0 0 - - -;
+#X msg 115 -3793 connect 192.168.1.3 1200;
+#X text 44 -4221 ADapted from http://hacklab.recyclism.com/workshops/arduino-to-pd-serial/
+;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array raw 131 float 3;
+#A 0 0.53 0.54 0.56 0.58 0.59 0.61 0.63 0.64 0.65 0.67 0.69 0.7 0.71
+0.68 0.65 0.63 0.61 0.59 0.57 0.56 0.54 0.51 0.5 0.48 0.47 0.46 0.86
+0.89 0.92 0.95 0.96 0.95 0.92 0.88 0.85 0.83 0.85 0.88 0.89 0.91 0.89
+0.85 0.8 0.76 0.73 0.71 0.7 0.69 0.67 0.66 0.64 0.59 0.56 0.54 0.53
+0.52 0.51 0.49 0.5 0.56 0.6 0.63 0.66 0.69 0.67 0.59 0.55 0.49 0.43
+0.4 0.37 0.35 0.33 0.3 0.29 0.27 0.24 0.22 0.21 0.19 0.22 0.27 0.32
+0.38 0.41 0.43 0.47 0.5 0.56 0.57 0.6 0.63 0.66 0.69 0.73 0.76 0.79
+0.84 0.86 0.87 0.88 0.87 0.84 0.8 0.74 0.68 0.62 0.57 0.55 0.51 0.45
+0.4 0.35 0.32 0.3 0.27 0.25 0.23 0.22 0.2 0.21 0.25 0.31 0.38 0.4 0.44
+0.49 0.5 0 0 0;
+#X coords 0 0 131 1 200 140 1 0 0;
+#X restore 435 -3713 graph;
+#X obj 677 -3783 tabosc4~ raw;
+#X obj 681 -3710 *~;
+#X floatatom 704 -3747 5 0 0 0 - - -;
+#X floatatom 727 -3669 5 0 0 0 - - -;
+#X obj 687 -3643 +~;
+#X floatatom 677 -3859 5 0 1 0 - - -;
+#X symbolatom 599 -3841 10 0 1 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array raw2 131 float 3;
+#A 0 0.5 0.53 0.54 0.56 0.58 0.59 0.61 0.63 0.64 0.65 0.67 0.69 0.7
+0.71 0.68 0.65 0.63 0.61 0.59 0.57 0.56 0.54 0.51 0.5 0.48 0.47 0.46
+0.86 0.89 0.92 0.95 0.96 0.95 0.92 0.88 0.85 0.83 0.85 0.88 0.89 0.91
+0.89 0.85 0.8 0.76 0.73 0.71 0.7 0.69 0.67 0.66 0.64 0.59 0.56 0.54
+0.53 0.52 0.51 0.49 0.5 0.56 0.6 0.63 0.66 0.69 0.67 0.59 0.55 0.49
+0.43 0.4 0.37 0.35 0.33 0.3 0.29 0.27 0.24 0.22 0.21 0.19 0.22 0.27
+0.32 0.38 0.41 0.43 0.47 0.5 0.56 0.57 0.6 0.63 0.66 0.69 0.73 0.76
+0.79 0.84 0.86 0.87 0.88 0.87 0.84 0.8 0.74 0.68 0.62 0.57 0.55 0.51
+0.45 0.4 0.35 0.32 0.3 0.27 0.25 0.23 0.22 0.2 0.21 0.25 0.31 0.38
+0.4 0.44 0.49 0 0 0;
+#X coords 0 1 130 -1 200 140 1;
+#X restore 446 -3522 graph;
+#X obj 535 -3761 tabwrite raw2;
+#X obj 790 -3687 *~;
+#X floatatom 800 -3734 5 0 0 0 - - -;
+#X floatatom 827 -3670 5 0 0 0 - - -;
+#X obj 811 -3633 +~;
+#X floatatom 795 -3848 5 0 1 0 - - -;
+#X obj 806 -3604 tabosc4~ raw2;
+#X obj 792 -3768 tabosc4~ raw2;
+#X obj 687 -3511 dac~ 1;
+#X obj 703 -3458 osc~;
+#X obj 707 -3412;
+#X obj 688 -3561 osc~;
+#X obj 815 -3544 dac~ 2;
+#X obj 825 -3568 spigot~;
+#X obj 908 -3587 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+1 1;
+#X connect 1 0 23 0;
+#X connect 2 0 3 0;
+#X connect 3 0 15 0;
+#X connect 3 0 24 0;
+#X connect 3 0 25 0;
+#X connect 3 0 38 0;
+#X connect 4 0 12 0;
+#X connect 12 0 1 0;
+#X connect 14 0 13 0;
+#X connect 15 0 17 0;
+#X connect 17 0 16 0;
+#X connect 18 0 14 0;
+#X connect 18 0 27 0;
+#X connect 19 0 12 0;
+#X connect 20 0 12 0;
+#X connect 21 0 19 0;
+#X connect 22 0 19 0;
+#X connect 23 0 2 0;
+#X connect 23 2 0 0;
+#X connect 25 0 24 1;
+#X connect 25 0 26 0;
+#X connect 25 0 38 1;
+#X connect 27 0 16 0;
+#X connect 30 0 31 0;
+#X connect 31 0 34 0;
+#X connect 32 0 31 1;
+#X connect 33 0 34 1;
+#X connect 34 0 49 0;
+#X connect 35 0 30 0;
+#X connect 39 0 42 0;
+#X connect 40 0 39 1;
+#X connect 41 0 42 1;
+#X connect 42 0 44 0;
+#X connect 43 0 45 0;
+#X connect 44 0 51 0;
+#X connect 45 0 39 0;
+#X connect 49 0 46 0;
+#X connect 51 0 50 0;
+#X connect 52 0 51 1;
